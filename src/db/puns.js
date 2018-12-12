@@ -11,7 +11,6 @@ const createPun = (punData) => {
 
 const removePun = (id) => {
   Firebase.collection('puns').doc(id).delete().then(() => {
-      console.log('Removed Doc')
   }).catch((error) => {
       console.warn(error)
   })
@@ -20,7 +19,6 @@ const removePun = (id) => {
 const fetchPuns = () => {
   return new Promise((resolve, reject) => {
     Firebase.collection('puns').onSnapshot((snapshot) => {
-      console.log(snapshot)
       resolve(snapshot.docChanges().map(change => change.doc))
     })
   })

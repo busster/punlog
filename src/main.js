@@ -27,20 +27,22 @@ const removePunAction = (id) => {
 }
 
 Firebase.collection('puns').onSnapshot(sn => {
-  sn.docChanges().forEach(d => {
-    const pun = new Pun({
-      id: d.doc.id,
-      ...d.doc.data()
+  sn.docChanges()
+    .sort((a, b) => new Date(b.doc.data().date) - new Date(a.doc.data().date))
+    .forEach(d => {
+      const pun = new Pun({
+        id: d.doc.id,
+        ...d.doc.data()
+      })
+      if (d.type === 'added') {
+        punsList.appendChild(new PunElement(pun, removePunAction).el)
+      } else if (d.type === 'modified') {
+        const el = document.getElementById(d.doc.id)
+        el.replaceWith(new PunElement(pun, removePunAction).el)
+      } else if (d.type === 'removed') {
+        document.getElementById(d.doc.id).remove()
+      }
     })
-    if (d.type === 'added') {
-      punsList.appendChild(new PunElement(pun, removePunAction).el)
-    } else if (d.type === 'modified') {
-      const el = document.getElementById(d.doc.id)
-      el.replaceWith(new PunElement(pun, removePunAction).el)
-    } else if (d.type === 'removed') {
-      document.getElementById(d.doc.id).remove()
-    }
-  })
 })
 
 fetchPeeps().then(data => {
