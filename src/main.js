@@ -28,14 +28,14 @@ const removePunAction = (id) => {
 
 Firebase.collection('puns').onSnapshot(sn => {
   sn.docChanges()
-    .sort((a, b) => new Date(b.doc.data().date) - new Date(a.doc.data().date))
+    .sort((a, b) => new Date(a.doc.data().date) - new Date(b.doc.data().date))
     .forEach(d => {
       const pun = new Pun({
         id: d.doc.id,
         ...d.doc.data()
       })
       if (d.type === 'added') {
-        punsList.appendChild(new PunElement(pun, removePunAction).el)
+        punsList.prepend(new PunElement(pun, removePunAction).el)
       } else if (d.type === 'modified') {
         const el = document.getElementById(d.doc.id)
         el.replaceWith(new PunElement(pun, removePunAction).el)
@@ -57,3 +57,13 @@ inputElement.addEventListener('keypress', (e) => {
     createPunAction()
   }
 })
+
+
+// dumbass console stuffz
+var style = [
+  'background: #000',
+  'color: #fff',
+  'padding: 10px 20px',
+  'line-height: 35px'
+  ].join(';');
+console.log('%c ♥️ pun lyfe', style);

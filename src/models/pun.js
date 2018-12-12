@@ -8,6 +8,7 @@ export default function Pun ({ id, pun, name, date }) {
     const d = new moment()
     this.date = d.toString()
   } else {
-    this.date = moment(date).format('MMMM Do YYYY, h:mm:ss a')
+    const _date = new Date(date)
+    this.date = moment(_date.toISOString()).format('MMMM Do YYYY, h:mm:ss a')
   }
 }
