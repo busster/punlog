@@ -14,7 +14,7 @@ export default function PunElement (pun, removeCb) {
   const removeBtn = new Btn({className: 'delete', text: 'x'}, removeCb(pun.id)).el
 
   topDiv.append(dateDiv)
-  topDiv.append(removeBtn)
+  // topDiv.append(removeBtn)
   bodyDiv.append(nameDiv)
   bodyDiv.append(punDiv)
 

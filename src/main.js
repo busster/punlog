@@ -26,6 +26,13 @@ const removePunAction = (id) => {
   }
 }
 
+// const getPunCount = () => Firebase.collection('puns').get()
+// Firebase.collection('puns').get().then(snap => {
+//   console.log(snap)
+//   size = snap.size
+//   console.log(size)
+// })
+
 Firebase.collection('puns').onSnapshot(sn => {
   sn.docChanges()
     .sort((a, b) => new Date(a.doc.data().date) - new Date(b.doc.data().date))
