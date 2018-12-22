@@ -10,6 +10,7 @@ const namesDropdown = document.getElementById('Names')
 const inputElement = document.getElementById('PunText')
 const createButton = document.getElementById('PunCreate')
 const punsList = document.getElementById('Puns')
+const title = document.getElementById('Title')
 
 const createPunAction = () => {
   const pun = inputElement.value
@@ -25,6 +26,14 @@ const removePunAction = (id) => {
     removePun(id)
   }
 }
+
+const secretRemove = (e) => {
+  removePun(e.detail.id)
+}
+
+// SHHHHHHHH........
+title.addEventListener('secretRemove', secretRemove)
+// document.getElementById('Title').dispatchEvent(new CustomEvent('secretRemove', { detail: { id: '<YOUR_ID>' } }))
 
 // const getPunCount = () => Firebase.collection('puns').get()
 // Firebase.collection('puns').get().then(snap => {
